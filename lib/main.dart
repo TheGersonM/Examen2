@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
                           
                         }),
                          FutureBuilder(
-                          future: Peticion().getProductos(),
+                          future: PeticionFinal().getPeticion(),
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData){
                               final data = snapshot.data!;

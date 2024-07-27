@@ -1,24 +1,31 @@
-
-import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class Peticion {
-  Future<List<dynamic>> getProductos() async {
+  final String key1;
+  final String key2;
+  final bool key3;
 
+  Peticion({required this.key1, required this.key2, required this.key3});
+
+  factory Peticion.fromJson(Map<String, dynamic> json) {
+    return Peticion(
+      key1: json['key1'],
+      key2: json['key2'],
+      key3: json['key3'],
+    );
+  }
+}
+
+class PeticionFinal {
+  Future<List<Peticion>> getPeticion() async {
     final url = Uri.https('yesno.wtf', 'api');
-
-    // Uri.parse(url)
 
     final respuesta = await http.get(url);
 
-    final data = json.decode(respuesta.body); 
+    final List<dynamic> data = json.decode(respuesta.body);
 
-    final List<dynamic> nuevaLista = [];
-
-    for (Map<dynamic,dynamic> item in data) {
-      final peticion = item;
-      nuevaLista.add(peticion);
-    }
+    final List<Peticion> nuevaLista = data.map((item) => Peticion.fromJson(item)).toList();
 
     return nuevaLista;
   }
