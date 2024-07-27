@@ -64,11 +64,17 @@ class _MyAppState extends State<MyApp> {
                           future: Peticion().getProductos(),
                           builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if(snapshot.hasData){
-                              return Text(snapshot.data.toString());
+                              final data = snapshot.data!;
+
+
+
+
+                              return Image.network(data.toString());
                             }else{
                               return const CircularProgressIndicator();
                             }
                           },
+                          
                          )
                       }
                     
